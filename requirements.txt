@@ -1,0 +1,9 @@
+# Linters
+pylint==3.2.7
+pycodestyle==2.11.1
+mypy==1.11.2
+
+# Misc.
+pyclean==3.0.0
+pre-commit==4.0.1
+pyinstaller==6.11.0
