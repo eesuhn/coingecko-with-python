@@ -46,6 +46,7 @@ def log_json(
         filename = generate_filename(filename)
     with open(path / f"{filename}.{extension}", "w", encoding="utf-8") as f:
         f.write(json.dumps(d, indent=2))
+    print(f"Logged {extension} response to {dest}/{filename}.{extension}'")
 
 
 def generate_filename(

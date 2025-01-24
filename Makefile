@@ -18,8 +18,11 @@ $(VENV)/bin/activate: requirements.txt
 
 	@echo "\033[0;32mDone!\033[0m"
 
-onchain: venv
-	@./$(VENV)/bin/python3 $(MAIN) --onchain
+run:
+	@./$(VENV)/bin/python3 $(MAIN) $(filter-out $@,$(MAKECMDGOALS))
+
+%:
+	@:
 
 clean:
 	@if [ -d $(VENV) ]; then \
@@ -43,4 +46,4 @@ build: venv
 	@./$(VENV)/bin/pyinstaller build.spec --clean > /dev/null 2>&1
 	@echo "\033[0;32mDone!\033[0m"
 
-.PHONY: all venv clean fclean re lint build onchain
+.PHONY: all venv clean fclean re lint build run

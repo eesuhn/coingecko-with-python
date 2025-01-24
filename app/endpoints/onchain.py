@@ -43,7 +43,6 @@ class Onchain:
             endpoint = endpoint[:-3]
         if page:
             endpoint += f"?page={page}"
-            print(endpoint)
         if sort:
             endpoint += f"?sort={sort.value}"
         return cg_request(endpoint)
