@@ -28,6 +28,7 @@ class Onchain:
         base_token: bool = False,
         quote_token: bool = False,
         dex: bool = False,
+        page: int = 1,
         sort: Union[SortTopPoolsByTokenAddress, None] = None,
     ) -> dict:
         endpoint = f"/onchain/networks/{network}/tokens/{token_address}/pools"
@@ -40,6 +41,9 @@ class Onchain:
             if dex:
                 endpoint += "dex%2C"
             endpoint = endpoint[:-3]
+        if page:
+            endpoint += f"?page={page}"
+            print(endpoint)
         if sort:
             endpoint += f"?sort={sort.value}"
         return cg_request(endpoint)
