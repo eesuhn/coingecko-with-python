@@ -17,3 +17,7 @@ dist/
 # Env
 .env*
 !.env.example
+
+# Log
+app/logs/*
+!app/logs/.gitkeep

@@ -1,5 +1,5 @@
 from .endpoints import Onchain
-from .utils import print_json
+from .utils import print_json, log_json
 
 from typing import Any
 
@@ -18,3 +18,4 @@ class Main:
             top_pools=True
         )
         print_json(response)
+        # log_json(response, "onchain_token_data_by_token_address", prod_filename=True)
