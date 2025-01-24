@@ -1,8 +1,10 @@
+import inspect
 import json
 import requests
 
 from pathlib import Path
 from datetime import datetime
+
 from ._constants import CG_API_KEY
 
 
@@ -56,3 +58,7 @@ def generate_filename(
     Generate filename based on the called function name and timestamp
     """
     return f"{func_name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+
+
+def log_func_name() -> str:
+    return inspect.currentframe().f_back.f_code.co_name

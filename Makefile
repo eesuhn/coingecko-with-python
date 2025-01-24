@@ -18,7 +18,7 @@ $(VENV)/bin/activate: requirements.txt
 
 	@echo "\033[0;32mDone!\033[0m"
 
-run:
+run: venv
 	@./$(VENV)/bin/python3 $(MAIN) $(filter-out $@,$(MAKECMDGOALS))
 
 %:
