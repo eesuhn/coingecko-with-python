@@ -1,5 +1,5 @@
 """
-python-starter
+coingecko-with-python
   by @eesuhn
 """
 

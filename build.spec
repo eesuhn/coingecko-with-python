@@ -23,7 +23,7 @@ exe = EXE(
 	a.binaries,
 	a.datas,
 	[],
-	name='python-starter',
+	name='coingecko-with-python',
 	debug=False,
 	bootloader_ignore_signals=False,
 	strip=False,

@@ -1,15 +1,10 @@
 from typing import Union
-from enum import Enum
 
-from ..utils import cg_request
+from .enums import SortTopPoolsByTokenAddress
+from .endpoints import Endpoints
 
 
-class Onchain:
-    class SortTopPoolsByTokenAddress(Enum):
-        H24_VOLUME_USD_LIQUIDITY_DESC = "h24_volume_usd_liquidity_desc"
-        H24_TX_COUNT_DESC = "h24_tx_count_desc"
-        H24_VOLUME_USD_DESC = "h24_volume_usd_desc"
-
+class Onchain(Endpoints):
     def token_data_by_token_address(
         self,
         network: str,
@@ -19,7 +14,7 @@ class Onchain:
         endpoint = f"/onchain/networks/{network}/tokens/{token_address}"
         if top_pools:
             endpoint += "?include=top_pools"
-        return cg_request(endpoint)
+        return super().cg_request(endpoint)
 
     def top_pools_by_token_address(
         self,
@@ -45,4 +40,4 @@ class Onchain:
             endpoint += f"?page={page}"
         if sort:
             endpoint += f"?sort={sort.value}"
-        return cg_request(endpoint)
+        return super().cg_request(endpoint)

@@ -46,4 +46,4 @@ build: venv
 	@./$(VENV)/bin/pyinstaller build.spec --clean > /dev/null 2>&1
 	@echo "\033[0;32mDone!\033[0m"
 
-.PHONY: all venv clean fclean re lint build run
+.PHONY: all venv run clean fclean re lint build

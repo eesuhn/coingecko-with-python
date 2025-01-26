@@ -1,33 +1,17 @@
-import inspect
 import json
-import requests
+import inspect
 
-from pathlib import Path
 from datetime import datetime
-
-from ._constants import CG_API_KEY
+from pathlib import Path
 
 
 def get_package_root() -> Path:
     return Path(__file__).parent
 
 
-def cg_request(
-    endpoint: str,
-    base_url: str = "https://pro-api.coingecko.com/api/v3"
-) -> dict:
-    url = f"{base_url}/{endpoint}"
-    headers = {
-        "accept": "application/json",
-        "x-cg-pro-api-key": CG_API_KEY
-    }
-    response = requests.get(url, headers=headers, timeout=10)
-    return response.json()
-
-
 def print_json(d: dict) -> None:
     """
-    Print N nested JSON response with Prettier format
+    Print JSON response with Prettier format
     """
     print(json.dumps(d, indent=2))
 
@@ -40,22 +24,22 @@ def log_json(
     dest: str = "logs"
 ) -> None:
     """
-    Log JSON response to a file
+    Log response to specified directory
     """
     path = get_package_root() / dest
     path.mkdir(exist_ok=True)
     if prod_filename:
-        filename = generate_filename(filename)
+        filename = generate_filename_by_func_name(filename)
     with open(path / f"{filename}.{extension}", "w", encoding="utf-8") as f:
         f.write(json.dumps(d, indent=2))
     print(f"Logged {extension} response to {dest}/{filename}.{extension}'")
 
 
-def generate_filename(
+def generate_filename_by_func_name(
     func_name: str
 ) -> str:
     """
-    Generate filename based on the called function name and timestamp
+    Generate filename by function name and current datetime
     """
     return f"{func_name}_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
 
