@@ -11,10 +11,15 @@ class Onchain(Endpoints):
         token_address: str,
         top_pools: bool = False
     ) -> dict:
+        """
+        Query specific token data based on the provided token contract address on a network
+        Ref: https://docs.coingecko.com/reference/token-data-contract-address
+        """
+
         endpoint = f"/onchain/networks/{network}/tokens/{token_address}"
         if top_pools:
             endpoint += "?include=top_pools"
-        return super().cg_request(endpoint)
+        return super().cg_request(endpoint=endpoint)
 
     def top_pools_by_token_address(
         self,
@@ -26,6 +31,11 @@ class Onchain(Endpoints):
         page: int = 1,
         sort: Union[SortTopPoolsByTokenAddress, None] = None,
     ) -> dict:
+        """
+        Query top pools based on the provided token contract address on a network
+        Ref: https://docs.coingecko.com/reference/top-pools-contract-address
+        """
+
         endpoint = f"/onchain/networks/{network}/tokens/{token_address}/pools"
         if base_token or quote_token or dex:
             endpoint += "?include="
@@ -40,4 +50,4 @@ class Onchain(Endpoints):
             endpoint += f"?page={page}"
         if sort:
             endpoint += f"?sort={sort.value}"
-        return super().cg_request(endpoint)
+        return super().cg_request(endpoint=endpoint)
