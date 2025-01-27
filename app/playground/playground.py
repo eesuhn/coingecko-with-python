@@ -58,3 +58,9 @@ class Playground:
                 filename=func_name,
                 prod_filename=True
             )
+
+    def get_run_methods(self) -> list[str]:
+        return self.func_list
+
+    def gui_callback(self) -> None:
+        pass
