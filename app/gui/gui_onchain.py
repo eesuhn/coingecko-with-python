@@ -1,10 +1,3 @@
-from PyQt5.QtWidgets import (
-    QLineEdit,
-    QVBoxLayout,
-    QCheckBox,
-    QLabel
-)
-
 from .gui import GUI
 from ..playground import PlayOnchain
 
@@ -23,35 +16,19 @@ class GUIOnchain(GUI):
         )
 
     def init_inputs(self) -> None:
-        network_label = QLabel("Network")
-        self.network_input = QLineEdit()
-        self.network_input.setText(self.network_input_default)
-
-        token_address_label = QLabel("Token Address")
-        self.token_address_input = QLineEdit()
-        self.token_address_input.setText(self.token_address_input_default)
-
-        self.inputs_layout.addWidget(network_label)
-        self.inputs_layout.addWidget(self.network_input)
-        self.inputs_layout.addWidget(token_address_label)
-        self.inputs_layout.addWidget(self.token_address_input)
-
-        # Link inputs to playground instance
-        self.playground.network_input = self.network_input
-        self.playground.token_address_input = self.token_address_input
+        self.playground.network_input = super().add_input(
+            label="Network",
+            default=self.network_input_default
+        )
+        self.playground.token_address_input = super().add_input(
+            label="Token Address",
+            default=self.token_address_input_default
+        )
 
     def init_options(self) -> None:
-        output_options_layout = QVBoxLayout()
-
-        self.print_checkbox = QCheckBox("Print to Console")
-        self.print_checkbox.setChecked(False)
-        self.log_checkbox = QCheckBox("Log to File")
-        self.log_checkbox.setChecked(False)
-
-        output_options_layout.addWidget(self.print_checkbox)
-        output_options_layout.addWidget(self.log_checkbox)
-        self.output_options_group.setLayout(output_options_layout)
-
-        # Link checkboxes to playground instance
-        self.playground.print_checkbox = self.print_checkbox
-        self.playground.log_checkbox = self.log_checkbox
+        self.playground.print_checkbox = super().add_option(
+            label="Print to Console"
+        )
+        self.playground.log_checkbox = super().add_option(
+            label="Log to File"
+        )
