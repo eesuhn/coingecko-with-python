@@ -1,6 +1,9 @@
 requests==2.32.3
 types-requests==2.32.0.20241016
 
+# GUI
+PyQt5==5.15.11
+
 # Linters
 pylint==3.2.7
 pycodestyle==2.11.1

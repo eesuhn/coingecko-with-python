@@ -1,11 +1,10 @@
 """
-python-starter
+coingecko-with-python
   by @eesuhn
 """
 
 import app
-import sys
 
 
 if __name__ == "__main__":
-    app.Main(*sys.argv)
+    app.Main()
