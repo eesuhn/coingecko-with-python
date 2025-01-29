@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import (
     QLineEdit,
+    QCheckBox,
 )
 
 from typing import Any
@@ -14,14 +15,13 @@ class PlayOnchain(Playground):
     token_address: str
     network_input: QLineEdit
     token_address_input: QLineEdit
+    print_checkbox: QCheckBox
+    log_checkbox: QCheckBox
 
     def __init__(
         self,
         **kwargs: Any
     ):
-        self.console_print = False
-        self.console_log = False
-
         super().__init__(**kwargs)
         self.onchain = Onchain()
 
@@ -58,6 +58,9 @@ class PlayOnchain(Playground):
     def gui_callback(self) -> None:
         self.network = self.network_input.text()
         self.token_address = self.token_address_input.text()
+
+        self.console_print = self.print_checkbox.isChecked()
+        self.console_log = self.log_checkbox.isChecked()
 
         for func_name in self.get_run_methods():
             getattr(self, func_name)()

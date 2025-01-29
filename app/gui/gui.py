@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import (
     QWidget,
     QVBoxLayout,
-    QFormLayout,
     QPushButton,
     QGroupBox,
 )
@@ -19,17 +18,20 @@ class GUI(QWidget):
 
     def _init_ui(self) -> None:
         layout = QVBoxLayout()
-        self.form_layout = QFormLayout()
-        self.output_options_group = QGroupBox("Output Options")
+        self.inputs_layout = QVBoxLayout()
+        self.output_options_group = QGroupBox()
         self.submit_btn = QPushButton("Submit")
         self.submit_btn.clicked.connect(self.callback)
 
         self.init_inputs()
         self.init_options()
 
-        layout.addLayout(self.form_layout)
+        layout.addLayout(self.inputs_layout)
+        layout.addSpacing(10)
         layout.addWidget(self.output_options_group)
+        layout.addSpacing(10)
         layout.addWidget(self.submit_btn)
+
         super().setLayout(layout)
         self.setWindowTitle("CoinGecko Playground")
 
