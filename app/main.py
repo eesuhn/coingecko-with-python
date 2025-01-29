@@ -3,7 +3,7 @@ import sys
 from PyQt5.QtWidgets import QApplication
 
 from .playground import PlayOnchain
-from .gui import GUI
+from .gui import GUIOnchain
 
 
 class Main:
@@ -15,9 +15,9 @@ class Main:
         app = QApplication(sys.argv)
 
         if 'onchain' in sys.argv:
-            self.play_onchain = PlayOnchain()
-            gui = GUI(
-                callback=self.play_onchain.gui_callback
+            play_onchain = PlayOnchain()
+            gui = GUIOnchain(
+                playground=play_onchain
             )
         else:
             return

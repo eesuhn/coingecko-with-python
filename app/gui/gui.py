@@ -2,15 +2,13 @@ from PyQt5.QtWidgets import (
     QWidget,
     QVBoxLayout,
     QFormLayout,
-    QLineEdit,
+    QPushButton,
+    QGroupBox,
 )
 from typing import Callable
 
 
 class GUI(QWidget):
-    network_input_default = "eth"
-    token_address_input_default = "0xdac17f958d2ee523a2206206994597c13d831ec7"
-
     def __init__(
         self,
         callback: Callable
@@ -22,18 +20,27 @@ class GUI(QWidget):
     def _init_ui(self) -> None:
         layout = QVBoxLayout()
         self.form_layout = QFormLayout()
+        self.output_options_group = QGroupBox("Output Options")
+        self.submit_btn = QPushButton("Submit")
+        self.submit_btn.clicked.connect(self.callback)
 
-        self._init_inputs()
+        self.init_inputs()
+        self.init_options()
 
         layout.addLayout(self.form_layout)
+        layout.addWidget(self.output_options_group)
+        layout.addWidget(self.submit_btn)
         super().setLayout(layout)
         self.setWindowTitle("CoinGecko Playground")
 
-    def _init_inputs(self) -> None:
-        self.network_input = QLineEdit()
-        self.network_input.setText(self.network_input_default)
-        self.form_layout.addRow("Network", self.network_input)
+    def init_inputs(self) -> None:
+        """
+        Override this method to add inputs
+        """
+        pass
 
-        self.token_address_input = QLineEdit()
-        self.token_address_input.setText(self.token_address_input_default)
-        self.form_layout.addRow("Token Address", self.token_address_input)
+    def init_options(self) -> None:
+        """
+        Override this method to add options
+        """
+        pass

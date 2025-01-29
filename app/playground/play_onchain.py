@@ -1,3 +1,7 @@
+from PyQt5.QtWidgets import (
+    QLineEdit,
+)
+
 from typing import Any
 
 from .playground import Playground
@@ -8,11 +12,16 @@ from ..utils import log_func_name
 class PlayOnchain(Playground):
     network: str
     token_address: str
+    network_input: QLineEdit
+    token_address_input: QLineEdit
 
     def __init__(
         self,
         **kwargs: Any
     ):
+        self.console_print = False
+        self.console_log = False
+
         super().__init__(**kwargs)
         self.onchain = Onchain()
 
@@ -45,3 +54,10 @@ class PlayOnchain(Playground):
             response=response,
             func_name=log_func_name()
         )
+
+    def gui_callback(self) -> None:
+        self.network = self.network_input.text()
+        self.token_address = self.token_address_input.text()
+
+        for func_name in self.get_run_methods():
+            getattr(self, func_name)()

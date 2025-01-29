@@ -63,4 +63,7 @@ class Playground:
         return self.func_list
 
     def gui_callback(self) -> None:
+        """
+        Override this method to handle GUI submit button
+        """
         pass
