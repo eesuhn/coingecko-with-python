@@ -19,5 +19,5 @@ dist/
 !.env.example
 
 # Log
-app/logs/*
+app/logs/_run_*
 !app/logs/.gitkeep

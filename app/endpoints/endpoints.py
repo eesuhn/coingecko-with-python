@@ -17,7 +17,7 @@ class Endpoints:
         base_url: str = "https://pro-api.coingecko.com/api/v3",
         timeout: int = 10
     ) -> dict:
-        url = f"{base_url}/{endpoint}"
+        url = f"{base_url}{endpoint}"
 
         # TODO: Color this print statement
         print(url)
@@ -34,7 +34,12 @@ class Endpoints:
         Build query string from parameters
         """
 
-        filtered_params = {k: v for k, v in params.items() if v}
+        filtered_params = {}
+        for k, v in params.items():
+            if isinstance(v, bool):
+                filtered_params[k] = str(v).lower()
+            else:
+                filtered_params[k] = v
         if not filtered_params:
             return ""
         return "?" + urlencode(filtered_params)
