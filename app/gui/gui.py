@@ -7,7 +7,9 @@ from PyQt5.QtWidgets import (
     QLabel,
     QCheckBox
 )
-from typing import Callable
+from typing import Callable, Union
+
+from ._constants import GUI_WINDOW_TITLE, GUI_WINDOW_MIN_WIDTH
 
 
 class GUI(QWidget):
@@ -20,31 +22,41 @@ class GUI(QWidget):
         self._init_ui()
 
     def _init_ui(self) -> None:
+        """
+        Initialize the main GUI layout
+        """
         layout = QVBoxLayout()
 
         # Inputs
         self.inputs_layout = QVBoxLayout()
 
+        # Run options
+        run_methods_group = QGroupBox()
+        self.run_methods_layout = QVBoxLayout()
+        run_methods_group.setLayout(self.run_methods_layout)
+
         # Output options
-        self.output_options_group = QGroupBox()
+        output_options_group = QGroupBox()
         self.output_options_layout = QVBoxLayout()
-        self.output_options_group.setLayout(self.output_options_layout)
+        output_options_group.setLayout(self.output_options_layout)
 
         # Submit button
         self.submit_btn = QPushButton("Submit")
         self.submit_btn.clicked.connect(self.callback)
 
         self.init_inputs()
+        self.init_run_options()
         self.init_options()
 
         layout.addLayout(self.inputs_layout)
-        layout.addSpacing(10)
-        layout.addWidget(self.output_options_group)
+        layout.addWidget(run_methods_group)
+        layout.addWidget(output_options_group)
         layout.addSpacing(10)
         layout.addWidget(self.submit_btn)
 
         super().setLayout(layout)
-        self.setWindowTitle("CoinGecko Playground")
+        super().setWindowTitle(GUI_WINDOW_TITLE)
+        super().setMinimumWidth(GUI_WINDOW_MIN_WIDTH)
 
     def init_inputs(self) -> None:
         """
@@ -52,11 +64,29 @@ class GUI(QWidget):
         """
         pass
 
+    def init_run_options(self) -> None:
+        """
+        Override this method to add run options
+        """
+        for method in self.playground.get_run_methods():
+            display_name = method.replace('_run_', '')
+            checkbox = self.add_option(
+                label=display_name,
+                default=True,
+                parent=self.run_methods_layout
+            )
+            self.playground.run_method_checkboxes[method] = checkbox
+
     def init_options(self) -> None:
         """
         Override this method to add options
         """
-        pass
+        self.playground.print_checkbox = self.add_option(
+            label="Print to Console"
+        )
+        self.playground.log_checkbox = self.add_option(
+            label="Log to File"
+        )
 
     def add_input(
         self,
@@ -73,21 +103,27 @@ class GUI(QWidget):
 
         self.inputs_layout.addWidget(input_label)
         self.inputs_layout.addWidget(input_field)
+        self.inputs_layout.addSpacing(10)
 
         return input_field
 
     def add_option(
         self,
         label: str,
-        default: bool = False
+        default: bool = False,
+        parent: Union[QVBoxLayout, None] = None
     ) -> QCheckBox:
         """
-        Add an option to GUI `output_options_layout`
+        Add an option to GUI
+        If parent is not specified, adds to `output_options_layout`
         """
 
         option = QCheckBox(label)
         option.setChecked(default)
 
-        self.output_options_layout.addWidget(option)
+        if parent is None:
+            parent = self.output_options_layout
+
+        parent.addWidget(option)
 
         return option

@@ -1,0 +1,2 @@
+GUI_WINDOW_TITLE = "CoinGecko Playground"
+GUI_WINDOW_MIN_WIDTH = 400

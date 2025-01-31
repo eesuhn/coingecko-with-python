@@ -24,11 +24,3 @@ class GUIOnchain(GUI):
             label="Token Address",
             default=self.token_address_input_default
         )
-
-    def init_options(self) -> None:
-        self.playground.print_checkbox = super().add_option(
-            label="Print to Console"
-        )
-        self.playground.log_checkbox = super().add_option(
-            label="Log to File"
-        )
