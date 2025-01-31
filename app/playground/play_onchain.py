@@ -2,7 +2,6 @@ from PyQt5.QtWidgets import (
     QLineEdit,
     QCheckBox,
 )
-
 from typing import Any, Dict
 
 from .playground import Playground
@@ -29,10 +28,6 @@ class PlayOnchain(Playground):
 
     @Playground.run_wrapper
     def _run_token_data_by_token_address(self) -> None:
-        if not self.network or not self.token_address:
-            print("(network, token_address) are required")
-            return
-
         response = self.onchain.token_data_by_token_address(
             network=self.network,
             token_address=self.token_address
@@ -44,10 +39,6 @@ class PlayOnchain(Playground):
 
     @Playground.run_wrapper
     def _run_top_pools_by_token_address(self) -> None:
-        if not self.network or not self.token_address:
-            print("(network, token_address) are required")
-            return
-
         response = self.onchain.top_pools_by_token_address(
             network=self.network,
             token_address=self.token_address

@@ -33,8 +33,15 @@ class Playground:
 
     @staticmethod
     def run_wrapper(func: Callable) -> Callable:
+        """
+        - Methods marked as `run_wrapper` will be registered
+        - If `console_print` or `console_log` is True, the method will be executed
+        """
+
         @wraps(func)
         def wrapper(self: 'Playground', *args: Any, **kwargs: Any) -> Any:
+            if not (self.console_print or self.console_log):
+                return None
             return func(self, *args, **kwargs)
 
         # Mark the method as `run_wrapper`
@@ -48,6 +55,8 @@ class Playground:
     ) -> None:
         """
         Handle response from `_run` methods
+
+        TODO: Handle error response
         """
 
         if self.console_print:

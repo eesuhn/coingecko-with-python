@@ -9,6 +9,8 @@ from PyQt5.QtWidgets import (
 )
 from typing import Callable, Union
 
+from ._constants import GUI_WINDOW_TITLE, GUI_WINDOW_MIN_WIDTH
+
 
 class GUI(QWidget):
     def __init__(
@@ -53,8 +55,8 @@ class GUI(QWidget):
         layout.addWidget(self.submit_btn)
 
         super().setLayout(layout)
-        super().setWindowTitle("CoinGecko Playground")
-        super().setMinimumWidth(400)
+        super().setWindowTitle(GUI_WINDOW_TITLE)
+        super().setMinimumWidth(GUI_WINDOW_MIN_WIDTH)
 
     def init_inputs(self) -> None:
         """
@@ -79,7 +81,12 @@ class GUI(QWidget):
         """
         Override this method to add options
         """
-        pass
+        self.playground.print_checkbox = self.add_option(
+            label="Print to Console"
+        )
+        self.playground.log_checkbox = self.add_option(
+            label="Log to File"
+        )
 
     def add_input(
         self,
