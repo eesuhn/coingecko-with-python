@@ -1,8 +1,7 @@
 from PyQt5.QtWidgets import (
     QLineEdit,
-    QCheckBox,
 )
-from typing import Any, Dict
+from typing import Any
 
 from .playground import Playground
 from ..endpoints import Onchain
@@ -14,9 +13,6 @@ class PlayOnchain(Playground):
     token_address: str
     network_input: QLineEdit
     token_address_input: QLineEdit
-    print_checkbox: QCheckBox
-    log_checkbox: QCheckBox
-    run_method_checkboxes: Dict[str, QCheckBox]
 
     def __init__(
         self,
@@ -24,7 +20,6 @@ class PlayOnchain(Playground):
     ):
         super().__init__(**kwargs)
         self.onchain = Onchain()
-        self.run_method_checkboxes = {}
 
     @Playground.run_wrapper
     def _run_token_data_by_token_address(self) -> None:
@@ -52,9 +47,4 @@ class PlayOnchain(Playground):
         self.network = self.network_input.text()
         self.token_address = self.token_address_input.text()
 
-        self.console_print = self.print_checkbox.isChecked()
-        self.console_log = self.log_checkbox.isChecked()
-
-        for func_name in self.get_run_methods():
-            if self.run_method_checkboxes[func_name].isChecked():
-                getattr(self, func_name)()
+        Playground.gui_callback(self)

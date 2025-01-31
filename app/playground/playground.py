@@ -1,6 +1,7 @@
 import inspect
 
-from typing import Any, Callable
+from PyQt5.QtWidgets import QCheckBox
+from typing import Any, Callable, Dict
 from functools import wraps
 
 from ..utils import print_json, log_json
@@ -10,6 +11,9 @@ class Playground:
     console_print: bool
     console_log: bool
     func_list: list[str]
+    run_method_checkboxes: Dict[str, QCheckBox]
+    print_checkbox: QCheckBox
+    log_checkbox: QCheckBox
 
     def __init__(
         self,
@@ -18,6 +22,7 @@ class Playground:
         for k, v in kwargs.items():
             setattr(self, k, v)
         self._register_run_methods()
+        self.run_method_checkboxes = {}
 
     def _register_run_methods(self) -> None:
         """
@@ -73,6 +78,14 @@ class Playground:
 
     def gui_callback(self) -> None:
         """
+        - Link console options
+        - Register all method checkboxes for `func_list`
+
         Override this method to handle GUI submit button
         """
-        pass
+        self.console_print = self.print_checkbox.isChecked()
+        self.console_log = self.log_checkbox.isChecked()
+
+        for func_name in self.get_run_methods():
+            if self.run_method_checkboxes[func_name].isChecked():
+                getattr(self, func_name)()

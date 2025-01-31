@@ -72,7 +72,6 @@ class GUI(QWidget):
             display_name = method.replace('_run_', '')
             checkbox = self.add_option(
                 label=display_name,
-                default=True,
                 parent=self.run_methods_layout
             )
             self.playground.run_method_checkboxes[method] = checkbox

@@ -39,7 +39,7 @@ class Endpoints:
             return ""
         return "?" + urlencode(filtered_params)
 
-    def handle_include_params(self, **params: bool) -> Optional[str]:
+    def handle_include_params(self, **params: Any) -> Optional[str]:
         """
         Build include parameter string
         """

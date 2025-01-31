@@ -2,8 +2,10 @@ import sys
 
 from PyQt5.QtWidgets import QApplication
 
-from .playground import PlayOnchain
-from .gui import GUIOnchain
+from .gui import (
+    GUIOnchain,
+    GUICoins
+)
 
 
 class Main:
@@ -15,10 +17,9 @@ class Main:
         app = QApplication(sys.argv)
 
         if 'onchain' in sys.argv:
-            play_onchain = PlayOnchain()
-            gui = GUIOnchain(
-                playground=play_onchain
-            )
+            gui = GUIOnchain()
+        elif 'coins' in sys.argv:
+            gui = GUICoins()
         else:
             return
 

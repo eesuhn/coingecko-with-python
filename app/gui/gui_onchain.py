@@ -6,13 +6,10 @@ class GUIOnchain(GUI):
     network_input_default = "eth"
     token_address_input_default = "0xdac17f958d2ee523a2206206994597c13d831ec7"
 
-    def __init__(
-        self,
-        playground: PlayOnchain
-    ):
-        self.playground = playground
+    def __init__(self) -> None:
+        self.playground = PlayOnchain()
         super().__init__(
-            callback=playground.gui_callback
+            callback=self.playground.gui_callback
         )
 
     def init_inputs(self) -> None:

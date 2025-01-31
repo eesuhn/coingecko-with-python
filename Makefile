@@ -31,7 +31,7 @@ clean:
 
 fclean: clean
 	@if [ -d $(VENV) ]; then \
-		rm -rf $(VENV) .mypy_cache/ build/ dist/; \
+		rm -rf .mypy_cache/ build/ dist/; \
 	fi
 
 re: fclean all
@@ -41,6 +41,7 @@ lint: venv
 	@./$(VENV)/bin/pylint $(PACKAGE)
 	@./$(VENV)/bin/mypy $(PACKAGE)
 
+# FIXME: Build is not working properly
 build: venv
 	@echo "\033[0;33mBuilding...\033[0m"
 	@./$(VENV)/bin/pyinstaller build.spec --clean > /dev/null 2>&1

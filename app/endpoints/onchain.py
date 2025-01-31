@@ -1,7 +1,3 @@
-from typing import (
-    Optional,
-)
-
 from .enums import SortTopPoolsByTokenAddress
 from .endpoints import Endpoints
 
@@ -37,7 +33,7 @@ class Onchain(Endpoints):
         quote_token: bool = False,
         dex: bool = False,
         page: int = 1,
-        sort: Optional[SortTopPoolsByTokenAddress] = None
+        sort: SortTopPoolsByTokenAddress = SortTopPoolsByTokenAddress.H24_VOLUME_USD_LIQUIDITY_DESC
     ) -> dict:
         """
         Query top pools based on the provided token contract address on a network
@@ -52,7 +48,7 @@ class Onchain(Endpoints):
                 dex=dex
             ),
             "page": page,
-            "sort": sort.value if sort else None
+            "sort": sort.value
         }
         return super().make_request(
             endpoint=endpoint,
